@@ -1,6 +1,7 @@
 import java.util.*;
 class GuessGame {
     public static final Scanner sc = new Scanner(System.in);
+    public static int key = 0;
     static void description() {
         System.out.println("Description");
         System.out.println("Guess the number from 1 to 100 to win");
@@ -14,11 +15,11 @@ class GuessGame {
         System.out.println("_______ All the best!!! _______");
     }
     static int guessingGame(int round) {
-        System.out.println("\nROUND NUMBER " + round);
+        System.out.println("\nROUND " + round);
         int score = 0;
         int guess;
         int target = (int)(Math.random() * 100 + 1);
-        // System.out.println(target);
+        System.out.println(target);
         int chances = 5;
         while(chances > 0) {
             System.out.print("Enter your guess : ");
@@ -45,15 +46,18 @@ class GuessGame {
             chances--;
         }
         if(chances == 0) {
-            System.out.println("Guess Number : " + target);
+            System.out.println("Correct Number to Guess : " + target);
             System.out.println("You didn't guessed it!!");
             System.out.println("Try next time...");
         }
         System.out.println("Score of this round : " + score);
         System.out.print("Would you like to play more? ( Y / N ) ");
         char ques = sc.next().charAt(0);
-        if(ques == 'Y' || ques == 'y')
-            score += guessingGame(++round);
+        if(ques == 'Y' || ques == 'y' || ques == '1') {
+            round++;
+            score += guessingGame(round);
+        }
+        key = Math.max(key, round);
         return score;
     }
     public static void main(String args[]) {
@@ -61,7 +65,9 @@ class GuessGame {
         int round = 1;
         int score = 0;
         score += guessingGame(round);
-        System.out.println("Final Score : " + score + " after " + round + " round(s).");
+        System.out.println("Final Score : " + score + " after " + key + " round(s).");
+        double avg = (double)score / key;
+        System.out.format("Average Score : %.2f \n", avg);
         System.out.println("_____ Thank You for playing _____");
     }
 }
