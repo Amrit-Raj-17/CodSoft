@@ -19,7 +19,6 @@ class GuessGame {
         int score = 0;
         int guess;
         int target = (int)(Math.random() * 100 + 1);
-        System.out.println(target);
         int chances = 5;
         while(chances > 0) {
             System.out.print("Enter your guess : ");
